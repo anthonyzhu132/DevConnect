@@ -10,6 +10,11 @@ app.get('/', (req, res) => {
   res.send('API HAS CONNECTED WITH EXPRESS')
 })
 
+//Middleware
+
+// Using body parser to get requests
+app.use(express.json({ extended: false }))
+
 //Routes
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
