@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
-
+const gravatar = require('gravatar');
 const User = require('../../models/user');
+
 // post api/users
 // REGISTER USER
 // PUBLIC access
@@ -26,11 +27,18 @@ router.post('/', [
   try {
     let user = await User.findOne({ email });
     
+    //See if the user exists
     if(user) {
       res.status(400).json({ errors: [{ msg: 'User already exists' }] })
     }
-    //See if the user exists
+
     //Get users gravatar
+    const avatar = gravatar.url(email, {
+      s: '200',
+      r: 'pg',
+      d: 'mm'
+    });
+
     //Encrypt password
     //Return JsonWebToken
      res.send('user route')
