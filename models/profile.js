@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ProfileSchema = new mongoose.Schema({
+const profileSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'
@@ -103,5 +103,11 @@ const ProfileSchema = new mongoose.Schema({
     instagram: {
       type: String
     }
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
-})
+});
+
+module.exports = Profile = mongoose.model('profile', profileSchema);
