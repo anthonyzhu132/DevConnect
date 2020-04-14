@@ -79,6 +79,27 @@ router.post('/', [auth, [
     if(facebook) profileFields.social.facebook = facebook;
     if(linkedin) profileFields.social.linkedin = linkedin;
     if(instagram) profileFields.social.instagram = instagram;
+
+    try {
+      let profile = await Profile.findOne({ user: req.user.id })
+
+      if(profile) {
+        //Updating the profile once it's been found
+        profile = await Profile.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: profileFields },
+          { new: true }
+        );
+
+        return res.json(profile);
+      }
+
+      // Creating profile
+    } catch(err) {
+      console.error(err.message);
+      res.status(500).send('Server Error')
+    }
+
 })
 
 module.exports = router;
