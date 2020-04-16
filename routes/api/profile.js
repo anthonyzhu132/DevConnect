@@ -222,7 +222,11 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
     //Getting remove index
     const removeIndex = profile.experience.map(item => item.id).indexOf(req.params.exp_id);
     
-    
+    profile.experience.splice(removeIndex, 1);
+
+    await profile.save();
+
+    res.json(profile);
   } catch (err) {
     console.error(err.message);
     res.status(400).send('Server Error')
