@@ -248,19 +248,19 @@ router.put('/education', [ auth, [
   }
 
   const {
-    title,
-    company,
-    location,
+    school,
+    degree,
+    fieldofstudy,
     from,
     to,
     current,
     description
   } = req.body;
 
-  const newExp = {
-    title,
-    company,
-    location,
+  const newEdu = {
+    school,
+    degree,
+    fieldofstudy,
     from,
     to,
     current,
@@ -272,7 +272,7 @@ router.put('/education', [ auth, [
     const profile = await Profile.findOne({ user: req.user.id });
 
     //pushing new experiences into experiences array
-    profile.experience.push(newExp);
+    profile.education.push(newEdu);
 
     //Saving new profile
     await profile.save();
