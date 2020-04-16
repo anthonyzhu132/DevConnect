@@ -211,7 +211,7 @@ router.put('/experience', [ auth, [
   }
 });
 
-// PUT api/profile/experience/exp/:exp_id
+// DELETE api/profile/experience/exp/:exp_id
 // Delete experience from profile
 // Private
 router.delete('/experience/:exp_id', auth, async (req, res) => {
@@ -231,11 +231,57 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
     console.error(err.message);
     res.status(400).send('Server Error')
   }
-
 })
 
+// PUT api/profile/education
+// Add profile education
+// Private
+router.put('/education', [ auth, [
+  check('school', 'School is required').not().isEmpty(),
+  check('degree', 'Degree is required').not().isEmpty(),
+  check('fieldofstudy', 'Field of study is required').not().isEmpty(),
+  check('from', 'From date is required').not().isEmpty()
+] ], async (req, res) => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
 
+  const {
+    title,
+    company,
+    location,
+    from,
+    to,
+    current,
+    description
+  } = req.body;
 
+  const newExp = {
+    title,
+    company,
+    location,
+    from,
+    to,
+    current,
+    description
+  }
 
+  try {
+    //Setting profile from the request token
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    //pushing new experiences into experiences array
+    profile.experience.push(newExp);
+
+    //Saving new profile
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(400).send('Server Error')
+  }
+});
 
 module.exports = router;
