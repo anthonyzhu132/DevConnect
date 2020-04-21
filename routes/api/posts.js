@@ -67,9 +67,26 @@ router.get('/:id', auth, async (req, res) => {
     console.error(err.message);
 
     if(err.kind === 'ObjectId') {
-      return res.status(404).json({ msg: 'Post not found' });
+      return res.status(404).json({ msg: 'Pos t not found' });
     }
 
+    res.status(500).send('Server Error');
+  }
+  })
+
+
+// DELETE api/posts/:id
+// Delete a post by ID
+// Private
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    
+    //Check to see if the user deleting is the user who created the post
+
+    
+  } catch (err) {
+    console.error(err.message);
     res.status(500).send('Server Error');
   }
   })
