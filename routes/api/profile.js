@@ -123,7 +123,6 @@ router.get('/', async (req, res) => {
 
 });
 
-
 // GET api/profile/user/:user_id
 // GET Profile by user_id
 // Public
@@ -334,10 +333,6 @@ router.get('/github/:username', (req, res) => {
     res.status(500).send('Server Error');
   }
 })
-
-
-
-
 
 
 module.exports = router;
