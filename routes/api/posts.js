@@ -30,6 +30,9 @@ async (req, res) => {
      user: req.user.id
   }
 
+  const post = await newPost.save();
+
+  res.json(post);
   
   } catch (err) {
     console.error(err.message);
