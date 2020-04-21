@@ -268,7 +268,7 @@ router.put('/education', [ auth, [
   }
 
   try {
-    //Setting profile from the request token
+    //Setting profile from the request token 
     const profile = await Profile.findOne({ user: req.user.id });
 
     //pushing new experiences into experiences array
@@ -285,17 +285,17 @@ router.put('/education', [ auth, [
 });
 
 // DELETE api/profile/education/:edu_id
-// Delete experience from profile
+// Delete education from profile
 // Private
-router.delete('/experience/:exp_id', auth, async (req, res) => {
+router.delete('/education/:edu_id', auth, async (req, res) => {
   try {
     //Setting profile from the request token
     const profile = await Profile.findOne({ user: req.user.id });
 
     //Getting remove index
-    const removeIndex = profile.experience.map(item => item.id).indexOf(req.params.exp_id);
+    const removeIndex = profile.education.map(item => item.id).indexOf(req.params.edu_id);
     
-    profile.experience.splice(removeIndex, 1);
+    profile.education.splice(removeIndex, 1);
 
     await profile.save();
 
