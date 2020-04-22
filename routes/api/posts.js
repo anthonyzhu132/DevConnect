@@ -163,7 +163,25 @@ router.post('/comment/:id', [ auth, [check('text', 'Text is required').not().isE
   }
 
   try {
+    //assigning user and returning minus the password
+    const user = await User.findById(req.user.id).select('-password');
+
+    //finding the post by ID
+    const post = await Post.findById(req.params.id);
+
+    const newComment = {
+      text: req.body.text,
+      name: user.name,
+      avatar: user.avatar,
+      user: req.user.id
+    };
+
+    post.comments.unshift(newComment);
+
+    await post.save();
     
+    res.json(post);
+
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
