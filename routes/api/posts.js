@@ -195,13 +195,13 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     const comment = post.comments.find(comment => comment.id === req.params.comment_id);
 
     //Checking if comment exists
-    if(!comment) {
-      return res.status(404).json({ msg: 'Comment not found'});
+    if (!comment) {
+      return res.status(404).json({ msg: 'Comment does not exist' });
     }
 
-    //Checking if user deleeting comment is the user who created comment 
-    if(comment.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'User is not authorized'});
+    //Checking if user deleting comment is the user who created comment 
+    if (comment.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'User not authorized' });
     }
 
     //Get remove index
@@ -210,6 +210,8 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     post.comments.splice(removeIndex, 1);
 
     await post.save();
+
+    return res.json(post.comments);
     
   } catch (err) {
     console.error(err.message);
