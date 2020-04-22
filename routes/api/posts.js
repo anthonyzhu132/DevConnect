@@ -182,7 +182,31 @@ router.post('/comment/:id', [ auth, [check('text', 'Text is required').not().isE
     console.error(err.message);
     res.status(500).send('Server Error');
   }
-
 });
+
+// DELETE api/posts/comment/:id/:comment_id
+// Delete a comment
+// Private
+router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    //Getting comment by ID
+    const comment = post.comments.find(comment => comment.id === req.params.comment_id);
+
+    //Checking if comment exists
+    if(!comment) {
+      return res.status(404).json({ msg: 'Comment not found'});
+    }
+
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+
+
 
 module.exports = router;
