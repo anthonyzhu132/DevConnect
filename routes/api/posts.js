@@ -67,7 +67,7 @@ router.get('/:id', auth, async (req, res) => {
     console.error(err.message);
 
     if(err.kind === 'ObjectId') {
-      return res.status(404).json({ msg: 'Pos t not found' });
+      return res.status(404).json({ msg: 'Post not found' });
     }
 
     res.status(500).send('Server Error');
@@ -149,5 +149,27 @@ router.put('/unlike/:id', auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 })
+
+
+// POST api/posts/comment/:id
+// Comment on a post
+// Private
+router.post('/comment/:id', [ auth, [check('text', 'Text is required').not().isEmpty()]
+], async (req, res) => {
+  const errors = validationResult(req);
+
+  if(!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  try {
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+
+});
+
 
 module.exports = router;
