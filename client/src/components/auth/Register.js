@@ -21,30 +21,28 @@ const Register = () => {
     if(password !== password2) {
       console.log('Passwords do not match')
     } else {
-      const newUser = {
-        name,
-        email,
-        password,
-      }
-
-      
-      try {
-        //Creating config for HEADER TYPE
-        const config = {
-          headers: {
-            'Content-Type': 'Application/json'
-          }
-        }
-        //Creating variable to stringify new user data as JSON
-        const body = JSON.stringify(newUser);
+      console.log('SUCCESS')
+      // const newUser = {
+      //   name,
+      //   email,
+      //   password,
+      // }
+      // try {
+      //   //Creating config for HEADER TYPE
+      //   const config = {
+      //     headers: {
+      //       'Content-Type': 'Application/json'
+      //     }
+      //   }
+      //   //Creating variable to stringify new user data as JSON
+      //   const body = JSON.stringify(newUser);
         
-        //Creating variable to use axios call **USES AWAIT as Axios returns a promise** sending in BODY data from newUser, with config type
-        const res = await axios.post('/api/users', body, config);
-        console.log(res.data)
-      } catch (err) {
-        console.error(err.response.data);
-      }
-
+      //   //Creating variable to use axios call **USES AWAIT as Axios returns a promise** sending in BODY data from newUser, with config type
+      //   const res = await axios.post('/api/users', body, config);
+      //   console.log(res.data)
+      // } catch (err) {
+      //   console.error(err.response.data);
+      // }
     }
   }
 
