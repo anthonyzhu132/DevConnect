@@ -13,9 +13,11 @@ const Register = () => {
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  //OnSubmit when user clicks submit on form 
   const onSubmit = async e => {
     e.preventDefault();
 
+    //Checking if password 1 & 2 are a match
     if(password !== password2) {
       console.log('Passwords do not match')
     } else {
@@ -24,13 +26,19 @@ const Register = () => {
         email,
         password,
       }
+
+      
       try {
+        //Creating config for HEADER TYPE
         const config = {
           headers: {
             'Content-Type': 'Application/json'
           }
         }
+        //Creating variable to stringify new user data as JSON
         const body = JSON.stringify(newUser);
+        
+        //Creating variable to use axios call **USES AWAIT as Axios returns a promise** sending in BODY data from newUser, with config type
         const res = await axios.post('/api/users', body, config);
         console.log(res.data)
       } catch (err) {
