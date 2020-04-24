@@ -89,7 +89,7 @@ const Register = ({ setAlert }) => {
   </Fragment>
 };
 
-Register.PropTypes = { 
+Register.propTypes = {
   setAlert: PropTypes.func.isRequired
 };
 
